@@ -29,7 +29,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         
         <div className="h-6 w-px bg-gray-300"></div>
         
-        {/* {isLoggedIn ? (
+        {isLoggedIn ? (
           <div className="relative">
             <button 
               className="flex items-center space-x-2 text-gray-700 hover:text-blue-600"
@@ -65,8 +65,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           >
             <FaSignInAlt /> <span>Login</span>
           </Link>
-        )} */}
-        <div className="relative">
+        )}
+        {/* <div className="relative">
             <button 
               className="flex items-center space-x-2 text-gray-700 hover:text-blue-600"
               onClick={() => setShowDropdown(!showDropdown)}
@@ -93,7 +93,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
       </div>
     </nav>
   );

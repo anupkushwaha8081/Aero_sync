@@ -64,6 +64,7 @@ import {
   Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils"; // Optional utility
+import { useAuth } from "../../../Context/context"; // Import your auth context
 
 // Define all possible navigation items
 const allNavItems = {
@@ -80,17 +81,17 @@ const allNavItems = {
   ],
   client: [
     { label: "Dashboard", icon: <Home />, path: "/dashboard" },
-    { label: "Trips", icon: <Briefcase />, path: "/my-trips" },
+    { label: "Trips", icon: <Briefcase />, path: "/trip" },
     { label: "Contract", icon: <FileText />, path: "/contract" },
-    { label: "Documents", icon: <FileText />, path: "/documents" },
+    { label: "Documents", icon: <FileText />, path: "/document" },
     { label: "Aircraft", icon: <Plane />, path: "/aircraft" },
     { label: "Settings", icon: <Settings />, path: "/settings" },
   ],
   crew: [
     { label: "Dashboard", icon: <Home />, path: "/dashboard" },
-    { label: "Trips", icon: <Briefcase />, path: "/my-trips" },
+    { label: "Trips", icon: <Briefcase />, path: "/trip" },
     { label: "Contract", icon: <FileText />, path: "/contract" },
-    { label: "Documents", icon: <FileText />, path: "/documents" },
+    { label: "Documents", icon: <FileText />, path: "/document" },
     { label: "Settings", icon: <Settings />, path: "/settings" },
   ],
 };
@@ -100,8 +101,8 @@ export default function Sidebar() {
   
   // Get user role from your authentication context or state management
   // This is just an example - replace with your actual role detection
-  const userRole = "client"; // This would come from your auth context
-  
+  // const userRole = "crew"; /S/ This would come from your auth context
+  const { userRole } = useAuth(); 
   // Get the appropriate nav items based on role
   const navItems = allNavItems[userRole] || allNavItems.client;
 

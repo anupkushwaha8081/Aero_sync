@@ -205,9 +205,10 @@ const AircraftForm = ({ onSubmit, onCancel }) => {
         {/* Aircraft Type */}
         <SingleSelectDropdown
           options={aircraftTypes}
-          selectedItem={formData.client}
-          onChange={handleChange}
-          // onSelect={(item) => updateFormData("client", item)}
+          selectedItem={formData.type}
+          onSelect={(value) =>
+            setFormData((prev) => ({ ...prev, type: value }))
+          }
           label="Type *"
         />
 
