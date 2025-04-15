@@ -87,7 +87,7 @@ const AdminTripDashboard = () => {
       
 
      
-      <div className="w-[80%] p-6">
+      <div className="w-[70%] p-6">
         {/* Step Navigation */}
         <TripSteps 
           steps={steps} 

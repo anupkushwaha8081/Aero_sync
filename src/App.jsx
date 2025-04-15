@@ -10,6 +10,7 @@ import BankManagement from "./Admin/admin_components/adminBankDetails";
 import Profile from "./common/Profile";
 import Login from "./common/Login";
 import Signup from "./common/Signup";
+import Contract from "./Admin/admin_components/adminContractPage";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path="/client" element={<AdminClientPage />} />
           <Route path="/crew" element={<AdminCrewPage />} />
           <Route path="/trip" element={<AdminTripPage />} />
-          {/* <Route path="/contract" element={<AdminTripPage />} /> */}
+          <Route path="/contract" element={<Contract />} />
           <Route path="/profile" element={<Profile />} />
 
           <Route path="/document" element={<AdminDocumentPage />} />

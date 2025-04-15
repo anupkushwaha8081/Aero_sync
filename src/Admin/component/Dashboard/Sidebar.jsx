@@ -100,7 +100,7 @@ export default function Sidebar() {
   
   // Get user role from your authentication context or state management
   // This is just an example - replace with your actual role detection
-  const userRole = "crew"; // This would come from your auth context
+  const userRole = "client"; // This would come from your auth context
   
   // Get the appropriate nav items based on role
   const navItems = allNavItems[userRole] || allNavItems.client;
