@@ -567,7 +567,6 @@
 // export default TripFirstPage;
 
 //----- we are begining Here ----//
-
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -577,11 +576,18 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
 import SingleSelectDropdown from "@/common/MultiDropdownMenu";
+import { useAuth } from "@/Context/context";
+
+
 const TripFirstPage = ({ formData, updateFormData, nextStep }) => {
+  const { userRole } = useAuth(); 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     nextStep();
   };
+  console.log(userRole)
+  
   const clientOptions = [
     "Anup",
     "Rahul",
@@ -590,6 +596,9 @@ const TripFirstPage = ({ formData, updateFormData, nextStep }) => {
     "Saurabh",
     "Raju",
   ];
+
+  const isAdmin = userRole === 'admin';
+  const isClient = userRole === 'client';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -605,87 +614,31 @@ const TripFirstPage = ({ formData, updateFormData, nextStep }) => {
           />
         </div>
 
-        <div className="flex items-center space-x-4 bg-slate-100 p-3 rounded">
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div className="relative w-full cursor-pointer">
-                <div className="w-full appearance-none border border-gray-300 rounded px-3 py-2 pr-8 text-left bg-white">
-                  {formData.client || ' Client *'}
-                </div>
-                <div className=" bg-black"></div>
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-                  <ChevronDown size={16} />
-                </div>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              <DropdownMenuItem onClick={() => updateFormData('client', 'Client A')}>
-                Client A
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => updateFormData('client', 'Client B')}>
-                Client B
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
-          {/* //--new is above */}
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div className="relative w-full  cursor-pointer">
-                <div className="w-full appearance-none border border-gray-300 rounded px-3 py-2 pr-8 text-left bg-white">
-                  {formData.client || "Client *"}
-                </div>
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-                  <ChevronDown size={16} />
-                </div>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
-              <DropdownMenuItem
-                onClick={() => updateFormData("client", "Client A")}
-              >
-                Client A
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => updateFormData("client", "Client B")}
-              >
-                Client B
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
-          <SingleSelectDropdown
-            options={clientOptions}
-            selectedItem={formData.client}
-            onSelect={(item) => updateFormData("client", item)}
-            label="Client *"/>
+        {isAdmin && (
+          <div className="flex items-center space-x-4 bg-slate-100 p-3 rounded">
+            <SingleSelectDropdown
+              options={clientOptions}
+              selectedItem={formData.client}
+              onSelect={(item) => updateFormData("client", item)}
+              label="Client *"
+            />
 
-          <div className="flex items-center w-fit justify-between">
-            <label className="text-sm font-medium text-gray-700">
-              Approve & reject crew expenses
-            </label>
-            {/* <label className="inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only peer"
-                checked={formData.approveExpenses}
-                onChange={(e) =>
-                  updateFormData("approveExpenses", e.target.checked)
-                }
-              />
-              <div className="w-11 h-6 bg-gray-300 peer-checked:bg-blue-600 rounded-full transition-colors duration-200 ease-in-out relative">
-                <div className="absolute bg-white w-4 h-4 rounded-full transition-transform duration-200 ease-in-out left-1 top-1 peer-checked:translate-x-5" />
-              </div>
-            </label> */}
-            <label className="relative inline-flex items-center cursor-pointer">
+            <div className="flex items-center w-fit justify-between">
+              <label className="text-sm font-medium text-gray-700">
+                Approve & reject crew expenses
+              </label>
+              <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={document.autoAttach}
-                  onChange={() => onToggleAutoAttach(document.id)}
-                  className="sr-only peer "
+                  checked={formData.approveExpenses}
+                  onChange={(e) => updateFormData("approveExpenses", e.target.checked)}
+                  className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-[#828282] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
               </label>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -695,6 +648,7 @@ const TripFirstPage = ({ formData, updateFormData, nextStep }) => {
               placeholder="Fees"
               onChange={(e) => updateFormData("fees", e.target.value)}
               className="w-full border rounded p-2"
+              disabled={isClient}
             />
           </div>
           <div>
@@ -704,6 +658,7 @@ const TripFirstPage = ({ formData, updateFormData, nextStep }) => {
               placeholder="Percentage"
               onChange={(e) => updateFormData("percentage", e.target.value)}
               className="w-full border rounded p-2"
+              disabled={isClient}
             />
           </div>
         </div>
