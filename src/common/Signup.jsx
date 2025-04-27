@@ -265,7 +265,7 @@ const Signup = ({ setIsLoggedIn }) => {
   
     try {
       const { confirmPassword, ...payload } = formData;
-      const res = await axios.post('http://localhost:5000/api/auth/register', payload);
+      const res = await axios.post('https://anup-airline.onrender.com/api/auth/register', payload);
       
       if (res.data && res.data.success) {
         toast.success('Account created successfully!');
